@@ -4,6 +4,8 @@ import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import { Button, Image, Input, Text } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+import { auth } from "../firebase";
+
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,16 +14,27 @@ const RegisterScreen = ({ navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerBackTitle: "Login",
+      headerBackTitle: "aaaaa",
     });
   }, [navigation]);
 
-  const register = () => {};
+  const register = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        authUser.user.update({
+          displayName: name,
+          photoURL:
+            imageUrl ||
+            "https://scontent.fdac20-1.fna.fbcdn.net/v/t1.0-9/71645972_102473654506143_2089235889942167552_o.png?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=yxc10xynC0MAX9j4ABw&_nc_ht=scontent.fdac20-1.fna&oh=087eecdde3d7d1c4aacd6cbe666d145d&oe=603931F3",
+        });
+      })
+      .catch((error) => alert(error.message));
+  };
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <StatusBar style="light" />
-
       <Text h4 style={{ marginBottom: 50, color: "red" }}>
         Create a DamsonBook account
       </Text>

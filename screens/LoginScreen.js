@@ -3,11 +3,21 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { Button, Image, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { auth } from "../firebase";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
-  const SignIn = () => {};
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        navigation.replace("Home");
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
