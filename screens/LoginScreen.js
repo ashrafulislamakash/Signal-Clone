@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import { Button, Image, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { auth } from "../firebase";
+import { auth } from '../firebase';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -15,9 +15,12 @@ const LoginScreen = ({ navigation }) => {
         navigation.replace("Home");
       }
     });
-
     return unsubscribe;
   }, []);
+
+
+  const signIn = () => { };
+
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -46,12 +49,12 @@ const LoginScreen = ({ navigation }) => {
           secureTextEntry
           type="password"
           value={password}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => setpassword(text)}
         />
       </View>
 
       <View style={styles.button}>
-        <Button style={styles.button} onPress={SignIn} title="Login" />
+        <Button style={styles.button} onPress={signIn} title="Login" />
         <Button
           onPress={() => navigation.navigate("Register")}
           type="outline"

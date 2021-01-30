@@ -1,10 +1,10 @@
 import React, { useState, useLayoutEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
-import { Button, Image, Input, Text } from "react-native-elements";
+import { Button, Input, Text } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { auth } from "../firebase";
+import { auth } from '../firebase';
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -22,7 +22,7 @@ const RegisterScreen = ({ navigation }) => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
-        authUser.user.update({
+        authUser.user.updateProfile({
           displayName: name,
           photoURL:
             imageUrl ||
@@ -70,7 +70,6 @@ const RegisterScreen = ({ navigation }) => {
         <Input
           leftIcon={<Icon name="lock" size={24} color="black" />}
           placeholder="Profile Pic URL (optional)"
-          secureTextEntry
           type="text"
           value={imageUrl}
           onChangeText={(text) => setImageUrl(text)}
