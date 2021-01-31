@@ -19,7 +19,9 @@ const LoginScreen = ({ navigation }) => {
   }, []);
 
 
-  const signIn = () => { };
+  const signIn = () => {
+    auth.signInWithEmailAndPassword(email, password).catch((error) => alert(error));
+  };
 
 
   return (
@@ -50,6 +52,7 @@ const LoginScreen = ({ navigation }) => {
           type="password"
           value={password}
           onChangeText={(text) => setpassword(text)}
+          onSubmitEditing={signIn}
         />
       </View>
 
