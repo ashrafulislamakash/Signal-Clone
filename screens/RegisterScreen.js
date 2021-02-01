@@ -26,7 +26,7 @@ const RegisterScreen = ({ navigation }) => {
           displayName: name,
           photoURL:
             imageUrl ||
-            "https://scontent.fdac20-1.fna.fbcdn.net/v/t1.0-9/71645972_102473654506143_2089235889942167552_o.png?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=yxc10xynC0MAX9j4ABw&_nc_ht=scontent.fdac20-1.fna&oh=087eecdde3d7d1c4aacd6cbe666d145d&oe=603931F3",
+            "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png",
         });
       })
       .catch((error) => alert(error.message));
