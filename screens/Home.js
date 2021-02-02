@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = db.collection("Chats").onSnapshot((snapshot) =>
+    const unsubscribe = db.collection("chats").onSnapshot((snapshot) =>
       setChats(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -80,11 +80,7 @@ const Home = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      {/* <Header
-        leftComponent={{ icon: 'menu', color: '#fff' }}
-        centerComponent={{ text: 'Damsonbook', style: { color: '#fff' } }}
-        rightComponent={{ icon: 'home', color: '#fff' }}
-      /> */}
+
       <ScrollView style={styles.container}>
         {chats.map(({ id, data: { chatName } }) => (
           <CustomListItem

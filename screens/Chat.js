@@ -18,11 +18,11 @@ import { StatusBar } from "expo-status-bar";
 import { db, auth } from "../firebase";
 import "firebase/firestore";
 import firebase from "firebase/app";
-import "firebase/auth";
+
 
 const Chat = ({ navigation, route }) => {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState("");
+  const [messages, setMessages] = useState([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -83,29 +83,28 @@ const Chat = ({ navigation, route }) => {
 
   const sendMessage = () => {
     Keyboard.dismiss();
-    db.collection("Chats").doc(route.params.id).collection("messages").add({
-      timestamp: firebase.fireStore.fieldValue.serverTimestamp(),
+    db.collection("chats").doc(route.params.id).collection("messages").add({
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       message: input,
-      displayName: auth.currentUser,
+      displayName: auth.currentUser.displayName,
       email: auth.currentUser.email,
       photoURL: auth.currentUser.photoURL,
-    });
+    })
     setInput("");
   };
   useLayoutEffect(() => {
     const unsubscribe = db
-      .collection("Chats")
+      .collection('chats')
       .doc(route.params.id)
-      .collection("messages")
-      .orderBy("timestamp", "desc")
+      .collection('messages')
+      .orderBy('timestamp', 'desc')
       .onSnapshot((snapshot) =>
         setMessages(
-          snapshot.docs.map((doc) => ({
+          snapshot.docs.map(doc => ({
             id: doc.id,
-            data: doc.data(),
+            data: doc.data()
           }))
-        )
-      );
+        ));
     return unsubscribe;
   }, [route]);
 
@@ -118,10 +117,10 @@ const Chat = ({ navigation, route }) => {
         style={styles.container}
         keyboardVerticalOffset={90}
       >
-        <TouchableWithoutFeedback onpres={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <>
             <ScrollView>
-              {messages.map(({ id, data }) =>
+              {messages.map(({ id, data }) => (
                 data.email === auth.currentUser.email ? (
                   <View key={id} style={styles.reciver}>
                     <Avatar
@@ -143,11 +142,27 @@ const Chat = ({ navigation, route }) => {
                     <Text style={styles.reciverText}> {data.message}</Text>
                   </View>
                 ) : (
-                  <View style={styles.sender}>
-                    <Avatar />
-                    <Text style={styles.senderText}> {data.message}</Text>
-                  </View>
-                )
+                    <View style={styles.sender}>
+                      <Avatar
+                        position="absolute"
+                        rounded
+                        //WEb
+                        containerStyle={{
+                          position: "absolute",
+                          bottom: -15,
+                          right: -5,
+                        }}
+                        bottom={-15}
+                        right={-5}
+                        size={30}
+                        source={{
+                          uri: data.photoURL,
+                        }}
+
+                      />
+                      <Text style={styles.senderText}> {data.message}</Text>
+                    </View>
+                  ))
               )}
             </ScrollView>
             <View style={styles.footer}>
@@ -156,10 +171,10 @@ const Chat = ({ navigation, route }) => {
                 onChangeText={(text) => setInput(text)}
                 onSubmitEditing={sendMessage}
                 placeholder="Damsonbook Message"
-                style={styles.TextInput}
+                style={styles.textInput}
               />
 
-              <TouchableOpacity onpres={sendMessage} activeOpacity={0.5}>
+              <TouchableOpacity onPress={sendMessage} activeOpacity={0.5}>
                 <Ionicons name="send" size={24} color="#2B68E6" />
               </TouchableOpacity>
             </View>
@@ -184,7 +199,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginRight: 15,
     marginBottom: 20,
-    maxWidth: "80%0",
+    maxWidth: "80%",
     position: "relative",
   },
 
@@ -195,7 +210,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginRight: 15,
     marginBottom: 20,
-    maxWidth: "80%0",
+    maxWidth: "80%",
     position: "relative",
   },
 

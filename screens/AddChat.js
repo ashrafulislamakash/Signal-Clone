@@ -16,7 +16,7 @@ const Chat = ({ navigation }) => {
 
   const createChat = async () => {
     await db
-      .collection("Chats")
+      .collection("chats")
       .add({
         chatName: input,
       })
