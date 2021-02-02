@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
 
   sender: {
     padding: 15,
-    backgroundColor: "#ECECEC",
+    backgroundColor: "red",
     alignSelf: "flex-start",
     borderRadius: 20,
     marginRight: 15,

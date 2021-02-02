@@ -37,7 +37,7 @@ const Chat = ({ navigation }) => {
           <AntDesign name="wechat" type="antdesign" size={24} color="black" />
         }
       />
-      <Button onPress={createChat} title="Create New Chat" />
+      <Button disabled={!input} onPress={createChat} title="Create New Chat" />
     </View>
   );
 };
