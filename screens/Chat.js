@@ -39,8 +39,7 @@ const Chat = ({ navigation, route }) => {
           <Avatar
             rounded
             source={{
-              uri:
-                "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png",
+              uri: messages[0]?.data.photoURL,
             }}
           />
           <Text style={{ color: "white", marginLeft: 10, fontWeight: "700" }}>
@@ -79,7 +78,7 @@ const Chat = ({ navigation, route }) => {
         </View>
       ),
     });
-  }, [navigation]);
+  }, [navigation, messages]);
 
   const sendMessage = () => {
     Keyboard.dismiss();
@@ -119,7 +118,7 @@ const Chat = ({ navigation, route }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <>
-            <ScrollView>
+            <ScrollView contentContainerStyle={{ paddingTop: 15 }} >
               {messages.map(({ id, data }) => (
                 data.email === auth.currentUser.email ? (
                   <View key={id} style={styles.reciver}>
@@ -158,9 +157,9 @@ const Chat = ({ navigation, route }) => {
                         source={{
                           uri: data.photoURL,
                         }}
-
                       />
                       <Text style={styles.senderText}> {data.message}</Text>
+                      <Text style={styles.senderName}> {data.displayName}</Text>
                     </View>
                   ))
               )}
@@ -214,8 +213,25 @@ const styles = StyleSheet.create({
     position: "relative",
   },
 
-  reciverText: {},
-  senderText: {},
+  senderName: {
+    left: 10,
+    paddingRight: 10,
+    fontSize: 10,
+    color: 'white'
+  },
+
+  reciverText: {
+    color: "black",
+    fontWeight: "500",
+    marginLeft: 10,
+  },
+
+  senderText: {
+    color: "white",
+    fontWeight: "500",
+    marginLeft: 10,
+    marginBottom: 15,
+  },
 
   footer: {
     flexDirection: "row",
