@@ -6,12 +6,12 @@ import "firebase/firestore";
 //import "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDJK8ETSj-10q6Q_RTTMR4RBTEMRQ8UzTk",
-  authDomain: "damsonbook-e4723.firebaseapp.com",
-  projectId: "damsonbook-e4723",
-  storageBucket: "damsonbook-e4723.appspot.com",
-  messagingSenderId: "117513090727",
-  appId: "1:117513090727:web:9d53bd01b9d6eabfdbcd82",
+  apiKey: "AIzaSyDQXNe4JE3QsyTlA-Th739qyvL-3xqKFDA",
+  authDomain: "signal-f4114.firebaseapp.com",
+  projectId: "signal-f4114",
+  storageBucket: "signal-f4114.appspot.com",
+  messagingSenderId: "136825464609",
+  appId: "1:136825464609:web:35ac9051d3708474f84060"
 };
 
 let app;
